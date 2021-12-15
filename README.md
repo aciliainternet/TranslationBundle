@@ -1,2 +1,2 @@
 # TranslationBundle
-Acilia Translation Bundle for Symfony2
+Acilia Translation Bundle for Symfony 4.4

@@ -1,84 +1,50 @@
 <?php
+
 namespace Acilia\Bundle\TranslationBundle\Event;
 
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class ResourceEvent extends Event
 {
     const EVENT_WARMUP = 'translation.warmup';
     const EVENT_LOAD = 'translation.load';
 
-    /**
-     * @var string Resource Code
-     */
-    protected $resource;
+    protected string $resource;
+    protected string $culture;
+    protected int $version;
 
-    /**
-     * @var string Culture
-     */
-    protected $culture;
-
-    /**
-     * @var int Version
-     */
-    protected $version;
-
-    /**
-     * Set the Resource Code
-     * @param $resource string
-     * @return ResourceEvent
-     */
-    public function setResource($resource)
+    public function setResource(string $resource): self
     {
         $this->resource = $resource;
+
         return $this;
     }
 
-    /**
-     * Get the Resource Code
-     * @return string
-     */
-    public function getResource()
+    public function getResource(): string
     {
         return $this->resource;
     }
 
-    /**
-     * Set the Culture
-     * @param $culture string
-     * @return ResourceEvent
-     */
-    public function setCulture($culture)
+    public function setCulture(string $culture): self
     {
         $this->culture = $culture;
+
         return $this;
     }
 
-    /**
-     * Get the Culture
-     * @return string
-     */
-    public function getCulture()
+    public function getCulture(): string
     {
         return $this->culture;
     }
 
-    /**
-     * Set the Version
-     * @param $version int
-     * @return ResourceEvent
-     */
-    public function setVersion($version)
+    public function setVersion(int $version): self
     {
-        $this->version = (integer) $version;
+        $this->version = $version;
+
         return $this;
     }
 
-    /**
-     * Get the Version
-     * @return int
-     */
-    public function getVersion()
+    public function getVersion(): int
     {
         return $this->version;
     }

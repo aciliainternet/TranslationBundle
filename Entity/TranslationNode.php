@@ -1,4 +1,5 @@
 <?php
+
 namespace Acilia\Bundle\TranslationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -14,98 +15,60 @@ class TranslationNode
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    protected $id;
+    protected int $id;
 
     /**
      * @ORM\Column(name="node_name", type="string", length=64)
      */
-    protected $name;
+    protected string $name;
 
     /**
      * @ORM\Column(name="node_description", type="string", length=64)
      */
-    protected $description;
+    protected string $description;
 
     /**
      * @ORM\Column(name="node_type", type="string", length=12)
      */
-    protected $type;
+    protected string $type;
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Set name
-     *
-     * @param  string $name
-     * @return TranslationNode
-     */
-    public function setName($name)
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Set description
-     *
-     * @param  string $description
-     * @return TranslationNode
-     */
-    public function setDescription($description)
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
         return $this;
     }
 
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * Set type
-     *
-     * @param  string $type
-     * @return TranslationNode
-     */
-    public function setType($type)
+    public function setType(string $type): self
     {
         $this->type = $type;
 
         return $this;
     }
 
-    /**
-     * Get type
-     *
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }

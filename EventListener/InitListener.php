@@ -1,32 +1,35 @@
 <?php
+
 namespace Acilia\Bundle\TranslationBundle\EventListener;
 
 use Acilia\Bundle\TranslationBundle\Event\ResourcesEvent;
 use Acilia\Bundle\TranslationBundle\Event\ResourceEvent;
 use Acilia\Bundle\TranslationBundle\Library\Translation\Loader;
 use Symfony\Component\Translation\Loader\ArrayLoader;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Bundle\FrameworkBundle\Translation\Translator;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\Console\Event\ConsoleCommandEvent;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\Event;
 use Doctrine\DBAL\Exception\TableNotFoundException;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class InitListener
 {
-    protected $loader;
-    protected $eventDispatcher;
-    protected $translator;
+    protected Loader $loader;
+    protected EventDispatcherInterface $eventDispatcher;
+    protected TranslatorInterface $translator;
 
-    public function __construct(Loader $loader, EventDispatcherInterface $eventDispatcher, Translator $translator)
-    {
+    public function __construct(
+        Loader $loader,
+        EventDispatcherInterface $eventDispatcher,
+        TranslatorInterface $translator
+    ) {
         $this->loader = $loader;
         $this->eventDispatcher = $eventDispatcher;
         $this->translator = $translator;
+
         $translator->addLoader('array', new ArrayLoader());
     }
 
-    public function initialize(Event $event)
+    public function initialize(Event $event): void
     {
         $resourcesEvent = new ResourcesEvent();
         $this->eventDispatcher->dispatch(ResourceEvent::EVENT_LOAD, $resourcesEvent);

@@ -4,29 +4,34 @@ namespace Acilia\Bundle\TranslationBundle\Library\Translation;
 use Acilia\Bundle\TranslationBundle\Event\ResourceEvent;
 use Acilia\Bundle\TranslationBundle\Event\ResourcesEvent;
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class CacheWarmer implements CacheWarmerInterface
 {
-    protected $eventDispatcher;
-    protected $loader;
+    protected EventDispatcherInterface $eventDispatcher;
+    protected Loader $loader;
 
-    public function __construct($eventDispatcher, $loader)
+    public function __construct(EventDispatcherInterface $eventDispatcher, Loader $loader)
     {
         $this->eventDispatcher = $eventDispatcher;
         $this->loader = $loader;
     }
 
-    public function warmUp($cacheDir)
+    public function warmUp(string $cacheDir): void
     {
         $resourcesEvent = new ResourcesEvent();
         $this->eventDispatcher->dispatch(ResourceEvent::EVENT_WARMUP, $resourcesEvent);
 
         foreach ($resourcesEvent->getResources() as $resourceEvent) {
-            $this->loader->load($resourceEvent->getResource(), $resourceEvent->getCulture(), $resourceEvent->getVersion());
+            $this->loader->load(
+                $resourceEvent->getResource(),
+                $resourceEvent->getCulture(),
+                $resourceEvent->getVersion()
+            );
         }
     }
 
-    public function isOptional()
+    public function isOptional(): bool
     {
         return true;
     }

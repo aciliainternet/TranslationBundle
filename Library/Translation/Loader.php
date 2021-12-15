@@ -4,28 +4,30 @@ namespace Acilia\Bundle\TranslationBundle\Library\Translation;
 use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
-use Exception;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 class Loader
 {
-    const TTL = 6;
+    public const TTL = 6;
 
-    protected $cacheDir;
-    protected $doctrine;
-    protected $logger;
-    protected $debug;
-    protected $cache;
+    protected EntityManagerInterface $em;
+    protected LoggerInterface $logger;
+    protected ParameterBagInterface $params;
 
-    public function __construct($cacheDir, $doctrine, $logger, $debug = false, $cache = true)
-    {
-        $this->cacheDir = $cacheDir;
-        $this->doctrine = $doctrine;
+    public function __construct(
+        EntityManagerInterface $em,
+        LoggerInterface $logger,
+        ParameterBagInterface $params
+    ) {
+        $this->cacheDir = $this->params->get('kernel.cache_dir');
+        $this->em = $em;
         $this->logger = $logger;
-        $this->debug = $debug;
-        $this->cache = $cache;
+        $this->debug = $this->params->get('kernel.debug');
+        $this->cache = $this->params->get('acilia.translation.cache');
     }
 
-    public function load($resource = null, $culture = null, $version = 0)
+    public function load($resource = null, ?string $culture = null, int $version = 0): MessageCatalogue
     {
         $resourceName = ($resource === null) ? 'Global * Debug' : ($resource . '/' . $culture);
         $cacheFile = $this->cacheDir . '/translations/resource-' . ($resource === null ? 'global' : $resource) . '-' . $culture . '-v' . $version . '.php';
@@ -37,18 +39,18 @@ class Loader
                 $finder = new Finder();
                 $sfCacheFiles = $finder->in($this->cacheDir . '/translations/')->name('catalogue.' . $culture. '.*');
                 $fs->remove($sfCacheFiles);
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
             }
 
             $catalogue = new MessageCatalogue($culture);
             if ($resource ===  null) {
                 $nodesSql = 'SELECT N.node_name, N.node_type, A.attrib_name, A.attrib_original, NULL AS value_translation FROM translation_node N INNER JOIN translation_attribute A ON N.node_id = A.attrib_node';
-                $nodesStmt = $this->doctrine->getManager()->getConnection()->prepare($nodesSql);
+                $nodesStmt = $this->em->getConnection()->prepare($nodesSql);
                 $nodesStmt->execute();
 
             } else {
                 $nodesSql = 'SELECT N.node_name, N.node_type, A.attrib_name, A.attrib_original, V.value_translation FROM translation_node N INNER JOIN translation_attribute A ON N.node_id=A.attrib_node LEFT JOIN translation_value V ON A.attrib_id = V.value_attribute AND (V.value_resource = :resource OR V.value_resource IS NULL)';
-                $nodesStmt = $this->doctrine->getManager()->getConnection()->prepare($nodesSql);
+                $nodesStmt = $this->em->getConnection()->prepare($nodesSql);
                 $nodesStmt->execute(['resource' => $resource]);
             }
 

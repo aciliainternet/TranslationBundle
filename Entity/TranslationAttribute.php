@@ -1,4 +1,5 @@
 <?php
+
 namespace Acilia\Bundle\TranslationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -14,99 +15,61 @@ class TranslationAttribute
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    protected $id;
+    protected int $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="TranslationNode")
      * @ORM\JoinColumn(name="attrib_node", referencedColumnName="node_id", nullable=false)
      */
-    protected $node;
+    protected TranslationNode $node;
 
     /**
      * @ORM\Column(name="attrib_name", type="string", length=64)
      */
-    protected $name;
+    protected string $name;
 
     /**
      * @ORM\Column(name="attrib_original", type="text")
      */
-    protected $original;
+    protected string $original;
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Set name
-     *
-     * @param  string $name
-     * @return TranslationAttribute
-     */
-    public function setName($name)
+    public function setName(string $name): self
     {
         $this->name = $name;
 
         return $this;
     }
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Set original
-     *
-     * @param  string $original
-     * @return TranslationAttribute
-     */
-    public function setOriginal($original)
+    public function setOriginal(string $original): self
     {
         $this->original = $original;
 
         return $this;
     }
 
-    /**
-     * Get original
-     *
-     * @return string
-     */
-    public function getOriginal()
+    public function getOriginal(): string
     {
         return $this->original;
     }
 
-    /**
-     * Set node
-     *
-     * @param  \Acilia\Bundle\TranslationBundle\Entity\TranslationNode $node
-     * @return TranslationAttribute
-     */
-    public function setNode(\Acilia\Bundle\TranslationBundle\Entity\TranslationNode $node = null)
+    public function setNode(?TranslationNode $node = null): self
     {
         $this->node = $node;
 
         return $this;
     }
 
-    /**
-     * Get node
-     *
-     * @return \Acilia\Bundle\TranslationBundle\Entity\TranslationNode
-     */
-    public function getNode()
+    public function getNode(): TranslationNode
     {
         return $this->node;
     }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Acilia\Bundle\TranslationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -18,38 +19,38 @@ class TranslationValue
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    protected $id;
+    protected int $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="TranslationAttribute")
      * @ORM\JoinColumn(name="value_attribute", referencedColumnName="attrib_id", nullable=false)
      */
-    protected $attribute;
+    protected TranslationAttribute $attribute;
 
     /**
      * @ORM\Column(name="value_resource", type="string", length=16)
      */
-    protected $resource;
+    protected string $resource;
 
     /**
      * @ORM\Column(name="value_translation", type="text")
      */
-    protected $translation;
+    protected string $translation;
 
     /**
      * @ORM\Column(name="value_created_at", type="datetime", nullable=false)
      */
-    protected $createdAt;
+    protected \DateTimeInterface $createdAt;
 
     /**
      * @ORM\Column(name="value_modified_at", type="datetime", nullable=false)
      */
-    protected $modifiedAt;
+    protected \DateTimeInterface $modifiedAt;
 
     /**
      * @ORM\PrePersist
      */
-    public function setCreatedAtValue()
+    public function setCreatedAtValue(): void
     {
         $this->createdAt = new \DateTime();
         $this->modifiedAt = new \DateTime();
@@ -58,126 +59,72 @@ class TranslationValue
     /**
      * @ORM\PreUpdate
      */
-    public function setModifiedAtValue()
+    public function setModifiedAtValue(): void
     {
         $this->modifiedAt = new \DateTime();
     }
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * Set translation
-     *
-     * @param  string $translation
-     * @return TranslationValue
-     */
-    public function setTranslation($translation)
+    public function setTranslation(string $translation): self
     {
         $this->translation = $translation;
 
         return $this;
     }
 
-    /**
-     * Get translation
-     *
-     * @return string
-     */
-    public function getTranslation()
+    public function getTranslation(): string
     {
         return $this->translation;
     }
 
-    /**
-     * Set resource
-     *
-     * @param  string $resource
-     * @return TranslationValue
-     */
-    public function setResource($resource)
+    public function setResource(string $resource): self
     {
         $this->resource = $resource;
 
         return $this;
     }
 
-    /**
-     * Get resource
-     *
-     * @return string
-     */
-    public function getResource()
+    public function getResource(): string
     {
         return $this->resource;
     }
 
-    /**
-     * Set attribute
-     *
-     * @param  \Acilia\Bundle\TranslationBundle\Entity\TranslationAttribute $attribute
-     * @return TranslationValue
-     */
-    public function setAttribute(\Acilia\Bundle\TranslationBundle\Entity\TranslationAttribute $attribute = null)
+    public function setAttribute(?TranslationAttribute $attribute = null): self
     {
         $this->attribute = $attribute;
 
         return $this;
     }
 
-    /**
-     * Get attribute
-     *
-     * @return \Acilia\Bundle\TranslationBundle\Entity\TranslationAttribute
-     */
-    public function getAttribute()
+    public function getAttribute(): TranslationAttribute
     {
         return $this->attribute;
     }
 
-    /**
-     * Set createdAt
-     *
-     * @param datetime $createdAt
-     */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
     }
 
-    /**
-     * Get createdAt
-     *
-     * @return datetime
-     */
-    public function getCreatedAt()
+    public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    /**
-     * Set modifiedAt
-     *
-     * @param datetime $modifiedAt
-     */
-    public function setModifiedAt($modifiedAt)
+    public function setModifiedAt(\DateTimeInterface $modifiedAt): self
     {
         $this->modifiedAt = $modifiedAt;
+
+        return $this;
     }
 
-    /**
-     * Get transValueModifiedAt
-     *
-     * @return datetime
-     */
-    public function getModifiedAt()
+    public function getModifiedAt(): \DateTimeInterface
     {
         return $this->modifiedAt;
     }
