@@ -15,22 +15,22 @@ class TranslationNode
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    protected int $id;
+    protected $id;
 
     /**
      * @ORM\Column(name="node_name", type="string", length=64)
      */
-    protected string $name;
+    protected $name;
 
     /**
      * @ORM\Column(name="node_description", type="string", length=64)
      */
-    protected string $description;
+    protected $description;
 
     /**
      * @ORM\Column(name="node_type", type="string", length=12)
      */
-    protected string $type;
+    protected $type;
 
     public function getId(): int
     {

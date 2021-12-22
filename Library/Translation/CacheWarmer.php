@@ -8,8 +8,8 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class CacheWarmer implements CacheWarmerInterface
 {
-    protected EventDispatcherInterface $eventDispatcher;
-    protected Loader $loader;
+    protected $eventDispatcher;
+    protected $loader;
 
     public function __construct(EventDispatcherInterface $eventDispatcher, Loader $loader)
     {

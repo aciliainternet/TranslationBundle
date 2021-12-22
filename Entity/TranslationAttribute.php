@@ -15,23 +15,23 @@ class TranslationAttribute
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    protected int $id;
+    protected $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="TranslationNode")
      * @ORM\JoinColumn(name="attrib_node", referencedColumnName="node_id", nullable=false)
      */
-    protected TranslationNode $node;
+    protected $node;
 
     /**
      * @ORM\Column(name="attrib_name", type="string", length=64)
      */
-    protected string $name;
+    protected $name;
 
     /**
      * @ORM\Column(name="attrib_original", type="text")
      */
-    protected string $original;
+    protected $original;
 
     public function getId(): int
     {

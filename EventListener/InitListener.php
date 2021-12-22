@@ -13,9 +13,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class InitListener
 {
-    protected Loader $loader;
-    protected EventDispatcherInterface $eventDispatcher;
-    protected TranslatorInterface $translator;
+    protected $loader;
+    protected $eventDispatcher;
+    protected $translator;
 
     public function __construct(
         Loader $loader,

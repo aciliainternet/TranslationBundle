@@ -9,9 +9,9 @@ class ResourceEvent extends Event
     const EVENT_WARMUP = 'translation.warmup';
     const EVENT_LOAD = 'translation.load';
 
-    protected string $resource;
-    protected string $culture;
-    protected int $version;
+    protected $resource;
+    protected $culture;
+    protected $version;
 
     public function setResource(string $resource): self
     {

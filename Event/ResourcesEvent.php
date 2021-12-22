@@ -7,7 +7,7 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class ResourcesEvent extends Event implements \Countable
 {
-    protected array $resources;
+    protected $resources;
 
     public function __construct()
     {

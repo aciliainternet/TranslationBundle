@@ -19,33 +19,33 @@ class TranslationValue
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    protected int $id;
+    protected $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="TranslationAttribute")
      * @ORM\JoinColumn(name="value_attribute", referencedColumnName="attrib_id", nullable=false)
      */
-    protected TranslationAttribute $attribute;
+    protected $attribute;
 
     /**
      * @ORM\Column(name="value_resource", type="string", length=16)
      */
-    protected string $resource;
+    protected $resource;
 
     /**
      * @ORM\Column(name="value_translation", type="text")
      */
-    protected string $translation;
+    protected $translation;
 
     /**
      * @ORM\Column(name="value_created_at", type="datetime", nullable=false)
      */
-    protected \DateTimeInterface $createdAt;
+    protected $createdAt;
 
     /**
      * @ORM\Column(name="value_modified_at", type="datetime", nullable=false)
      */
-    protected \DateTimeInterface $modifiedAt;
+    protected $modifiedAt;
 
     /**
      * @ORM\PrePersist

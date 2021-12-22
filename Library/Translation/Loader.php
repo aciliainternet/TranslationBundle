@@ -11,9 +11,9 @@ class Loader
 {
     public const TTL = 6;
 
-    protected EntityManagerInterface $em;
-    protected LoggerInterface $logger;
-    protected ParameterBagInterface $params;
+    protected $em;
+    protected $logger;
+    protected $params;
 
     public function __construct(
         EntityManagerInterface $em,
