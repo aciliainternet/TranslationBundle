@@ -17,7 +17,7 @@ class CacheWarmer implements CacheWarmerInterface
         $this->loader = $loader;
     }
 
-    public function warmUp(string $cacheDir): void
+    public function warmUp($cacheDir): void
     {
         $resourcesEvent = new ResourcesEvent();
         $this->eventDispatcher->dispatch(ResourceEvent::EVENT_WARMUP, $resourcesEvent);
