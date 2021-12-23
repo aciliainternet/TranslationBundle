@@ -1,6 +1,7 @@
 <?php
 namespace Acilia\Bundle\TranslationBundle\Library\Translation;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
@@ -20,11 +21,11 @@ class Loader
         LoggerInterface $logger,
         ParameterBagInterface $params
     ) {
-        $this->cacheDir = $this->params->get('kernel.cache_dir');
+        $this->cacheDir = $params->get('kernel.cache_dir');
         $this->em = $em;
         $this->logger = $logger;
-        $this->debug = $this->params->get('kernel.debug');
-        $this->cache = $this->params->get('acilia.translation.cache');
+        $this->debug = $params->get('kernel.debug');
+        $this->cache = $params->get('acilia.translation.cache');
     }
 
     public function load($resource = null, ?string $culture = null, int $version = 0): MessageCatalogue

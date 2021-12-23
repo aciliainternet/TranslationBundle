@@ -3,7 +3,7 @@
 namespace Acilia\Bundle\TranslationBundle\Event;
 
 use Acilia\Bundle\TranslationBundle\Event\ResourceEvent;
-use Symfony\Contracts\EventDispatcher\Event;
+use Symfony\Component\EventDispatcher\Event;
 
 class ResourcesEvent extends Event implements \Countable
 {

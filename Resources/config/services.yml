@@ -1,8 +1,15 @@
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
     # Init Listener
     acilia.translation.listener.init:
         class: Acilia\Bundle\TranslationBundle\EventListener\InitListener
         #arguments: ["@acilia.translation.loader", "@event_dispatcher", "@translator.default"]
+        arguments:
+            $loader: '@acilia.translation.loader'
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: initialize, priority: 16 }
             - { name: kernel.event_listener, event: console.command, method: initialize, priority: 16 }
@@ -16,5 +23,7 @@ services:
     acilia.translation.cache_warmer:
         class: Acilia\Bundle\TranslationBundle\Library\Translation\CacheWarmer
         #arguments: ["@event_dispatcher", "@acilia.translation.loader"]
+        arguments:
+            $loader: '@acilia.translation.loader'
         tags:
             - { name: kernel.cache_warmer }

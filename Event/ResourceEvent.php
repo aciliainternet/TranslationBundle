@@ -2,7 +2,7 @@
 
 namespace Acilia\Bundle\TranslationBundle\Event;
 
-use Symfony\Contracts\EventDispatcher\Event;
+use Symfony\Component\EventDispatcher\Event;
 
 class ResourceEvent extends Event
 {
