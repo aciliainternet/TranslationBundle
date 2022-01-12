@@ -7,7 +7,6 @@ services:
     # Init Listener
     acilia.translation.listener.init:
         class: Acilia\Bundle\TranslationBundle\EventListener\InitListener
-        #arguments: ["@acilia.translation.loader", "@event_dispatcher", "@translator.default"]
         arguments:
             $loader: '@acilia.translation.loader'
         tags:
@@ -17,12 +16,10 @@ services:
     # Translation Loader
     acilia.translation.loader:
         class: Acilia\Bundle\TranslationBundle\Library\Translation\Loader
-        #arguments: ["%kernel.cache_dir%", "@doctrine", "@logger", "%kernel.debug%", "%acilia.translation.cache%"]
 
    # Translations Cache Warmer
     acilia.translation.cache_warmer:
         class: Acilia\Bundle\TranslationBundle\Library\Translation\CacheWarmer
-        #arguments: ["@event_dispatcher", "@acilia.translation.loader"]
         arguments:
             $loader: '@acilia.translation.loader'
         tags:
